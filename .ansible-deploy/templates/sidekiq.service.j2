@@ -1,0 +1,24 @@
+[Unit]
+Description=Sidekiq
+After=network.target
+
+[Service]
+Type=notify
+User={{ deploy_user }}
+
+EnvironmentFile={{ app_root_path }}/.rbenv-vars
+
+WorkingDirectory={{ app_current_path }}
+
+ExecStart={{ rbenv_bundle }} exec sidekiq -e production -C config/sidekiq.yml
+
+# Greatly reduce Ruby memory fragmentation and heap usage
+# https://www.mikeperham.com/2018/04/25/taming-rails-memory-bloat/
+Environment=MALLOC_ARENA_MAX=2
+
+# if we crash, restart
+RestartSec=1
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

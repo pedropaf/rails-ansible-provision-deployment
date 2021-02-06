@@ -1,0 +1,9 @@
+- name: Check if a certificate already exists
+  stat:
+    path: /etc/letsencrypt/live/{{ domain | replace('*.', '') }}/cert.pem
+  register: letsencrypt_cert
+
+- name: Get new certificate
+  command: "certbot --nginx -m {{ certbot_email }} -d {{ domain }} --agree-tos {{ certbot_flags }}"
+  when: not letsencrypt_cert.stat.exists
+  notify: Restart nginx

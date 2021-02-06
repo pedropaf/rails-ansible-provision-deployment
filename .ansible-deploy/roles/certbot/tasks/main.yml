@@ -1,0 +1,27 @@
+---
+- name: Install snap core
+  command: snap install core
+
+- name: Refresh snap core
+  command: snap refresh core
+
+- name: Install certbot
+  command: snap install --classic certbot
+    
+- name: Link certbot 
+  file:
+    src: "/snap/bin/certbot"
+    dest: "/usr/bin/certbot"
+    state: link
+
+- name: Ensure that nginx is stopped
+  service: 
+    name: nginx
+    state: stopped
+
+- name: Check & get new certificate
+  include_tasks: cert.yml
+  loop: "{{ certbot_domains }}"
+  loop_control:
+    loop_var: domain
+    

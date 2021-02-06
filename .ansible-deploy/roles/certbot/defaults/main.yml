@@ -1,0 +1,3 @@
+certbot_email: admin@example.com
+certbot_flags: ""
+certbot_domains: []
