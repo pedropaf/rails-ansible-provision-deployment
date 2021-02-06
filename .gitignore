@@ -42,3 +42,6 @@ yarn-debug.log*
 # Ignore Ansible secrets
 .ansible-deploy/.vault_pass
 .ansible-deploy/group_vars/all/vault.yml
+
+.DS_Store
+.ansible-deploy/.DS_Store
