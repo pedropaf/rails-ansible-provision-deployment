@@ -1,6 +1,6 @@
 <h1 align="center">Automate Rails Provision and Deployment using Ansible</h1>
 
-You can find a more in-depth [**Blog Post Here**](https://www.pedroalonso.net)
+You can find a more in-depth [**Blog Post Here**](https://www.pedroalonso.net/blog/automate-rails-provision-and-deployment-using-ansible)
 
 This is a sample Rails 6.1 app with 2 Ansible Playbooks, inside `.ansible-deploy` folder. Provision playbook is used to easily provision an **Ubuntu 20.04 Server**, there's another playbook for deployment and rollback your Rails app using Ansistrano.
 
@@ -76,7 +76,7 @@ postgresql_db_password: "{{ vault_postgresql_db_password }}" # from vault (see p
 postgresql_db_name:     "{{ app_name }}_production"
 ```
 
-### Step 4. Deploy
+### Step 4. Server Provisioning
 
 If you have booted up a clean Ubuntu Server, you can install all the dependencies for your Rails application running:
 
@@ -96,6 +96,15 @@ To deploy this app to your production server, you can use [DigitalOcean](https:/
 ansible_ssh_user=deployer
 ansible_python_interpreter=/usr/bin/python3
 ansible_ssh_private_key_file="~/.ssh/id_rsa"
+```
+
+### Step 5. Deploy your application
+
+After your server is setup (step 4), you can deploy your application running: 
+
+```bash
+$ cd .ansible-deploy
+$ ansible-playbook -i inventories/development.ini deploy.yml
 ```
 
 ## Additional Configuration
