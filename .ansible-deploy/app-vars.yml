@@ -29,13 +29,14 @@ puma_web_concurrency: 2
 sidekiq_service_file:  "sidekiq.service.j2"
 
 # Ansistrano
+ansistrano_deploy_via: git
+ansistrano_git_repo: "{{ app_git_repo }}"
+ansistrano_git_branch: "{{ app_git_branch }}"
+ansistrano_git_identity_key_path: "~/.ssh/id_rsa"
 ansistrano_deploy_from: "{{ playbook_dir }}/../"
 ansistrano_deploy_to: "{{ app_root_path }}"
 ansistrano_keep_releases: 3
 ansistrano_after_cleanup_tasks_file: "{{ playbook_dir }}/deploy_tasks/after_cleanup.yml"
-ansistrano_git_repo: "{{ app_git_repo }}"
-ansistrano_git_branch: "{{ app_git_branch }}"
-ansistrano_git_identity_key_path: "~/.ssh/id_rsa"
 ansistrano_ensure_shared_paths_exist: yes
 ansistrano_ensure_basedirs_shared_files_exist: yes
 
